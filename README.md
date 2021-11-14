@@ -24,6 +24,8 @@ cargo install git_structured_log
 git_structured_log <exclusive start of range>..<inclusive end of range> <comma-separated list of format flags>
 ```
 
+## Usage
+
 The tool will output a one-line JSON object for each commit in the given range. The keys of the object will be the same as the provided format flags.
 
 Most of the format flags from [git pretty-formats](https://git-scm.com/docs/pretty-formats) are supported (see the section with the `%` placeholders). For example, in order to output the commit message, commit hash, and commit author name of the last 5 commits, one might use:
@@ -35,6 +37,36 @@ $ git_structured_log HEAD~5..HEAD s,h,an
 {"an":"Jakob Kummerow","h":"7c79a9f","s":"[bigint] Stage BigInts"}
 {"an":"Deepti Gandluri","h":"782f640","s":"Revert \"[parser] Implements proposal-numeric-separator.\""}
 {"an":"Taketoshi Aono","h":"517df52","s":"[parser] Implements proposal-numeric-separator."}
+```
+Date ranges are made possible by the richness of revision specification, 
+described [here](https://git-scm.com/docs/git-rev-parse.html#_specifying_revisions).
+
+```bash
+$ git_structured_log HEAD@{3 days ago}..HEAD s,h,an
+...
+```
+
+CSV output can also be generated:
+
+```bash
+$ git_structured_log HEAD@{3 days ago}..HEAD s,h,an -o csv
+...
+```
+
+By default, the output begins from the newest commit and works
+backwards, likt `git log`. You can reverse the order:
+
+```bash
+$ git_structured_log HEAD@{3 days ago}..HEAD s,h,an --oldest-first
+...
+```
+
+By default, the current directory is assumed to be a repository.
+A different repository can be accessed with the `repo` option.
+
+```bash
+$ git_structured_log HEAD@{3 days ago}..HEAD s,h,an --repo ~/Projects/myproject/
+...
 ```
 
 ## Goals

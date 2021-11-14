@@ -5,8 +5,11 @@ authors = ["Teddy Katz <teddy.katz@gmail.com>"]
 description = "Extract git data in bulk"
 repository = "https://github.com/not-an-aardvark/git-structured-log"
 license = "MIT"
+edition = "2021"
 
 [dependencies]
 chrono = "0.4"
-git2 = "0.7"
+git2 = "0.13"
+paw = "1.0.0"
 serde_json = "1.0"
+structopt = { version = "0.3.25", features = [ "paw" ] }
