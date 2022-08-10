@@ -1,0 +1,11 @@
+To obtain the data:
+
+cargo run -- '01d4f5020..HEAD' h,ae,an,aI,cI,df,di,dd --repo ~/Documents/kapiche/hypanthium/ --oldest-first -o csv > data.csv
+
+To convert the data to sqlite:
+
+sqlite-utils insert data.db data data.csv --csv
+
+To start datasette:
+
+datasette serve data.db
